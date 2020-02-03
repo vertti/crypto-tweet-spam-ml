@@ -1,0 +1,5 @@
+{"label": "SPAM", "pattern": [{"lower": "discord"}]}
+{"label": "SPAM", "pattern": [{"lower": "join"}]}
+{"label": "SPAM", "pattern": [{"lower": "free"}]}
+{"label": "SPAM", "pattern": [{"lower": "code"}]}
+{"label": "SPAM", "pattern": [{"lower": "earn"}]}
