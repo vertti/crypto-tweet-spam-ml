@@ -39,3 +39,13 @@ prodigy textcat.batch-train twitter_spam en_core_web_sm --output twitter-spam-mo
 ```
 
 This will create training and evaluation sets and SpaCy model in `twitter-spam-model` folder.
+
+## Training with CatBoost
+
+Install dependencies with `pipenv`.
+
+Run `main.py` to train CatBoost with training set from Prodigy:
+
+```
+pipenv run python main.py
+```
