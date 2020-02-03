@@ -11,6 +11,7 @@ autopep8 = "*"
 [packages]
 pandas = "*"
 catboost = "*"
+spacy = "~=2.0.12"
 
 [requires]
 python_version = "3.6"
