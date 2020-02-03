@@ -18,7 +18,15 @@ This will do multiple Twitter search queries and convert the results to JSONL fi
 
 ## Training with Prodigy
 
-Install Prodigy and start training with seed words defined in `spam-seeds.jsonl` with:
+Install Prodigy.
+
+Install SpaCy language model with:
+
+```
+python -m spacy download en_core_web_sm
+```
+
+and start training with seed words defined in `spam-seeds.jsonl` with:
 
 ```
 prodigy textcat.teach twitter_spam en_core_web_sm ./alltweets.jsonl --label SPAM --patterns ./spam-seeds.jsonl
