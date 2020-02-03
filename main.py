@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 from pandas.io.json import json_normalize
+from catboost import CatBoostClassifier
 
 def load_set(name):
   non_needed_lines = ['text', '_input_hash', '_task_hash', 'label',
@@ -12,4 +13,13 @@ def load_set(name):
 
 training_df = load_set('training')
 evaluation_df = load_set('evaluation')
-print(evaluation_df)
+
+X_train = training_df.drop(columns=['answer'])
+y_train = training_df.answer
+
+X_val = evaluation_df.drop(columns=['answer'])
+y_val = evaluation_df.answer
+
+clf = CatBoostClassifier()
+clf.fit(X_train, y_train)
+print(f'Accuracy {clf.score(X_val, y_val)}')
