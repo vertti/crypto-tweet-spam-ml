@@ -23,3 +23,5 @@ y_val = evaluation_df.answer
 clf = CatBoostClassifier()
 clf.fit(X_train, y_train)
 print(f'Accuracy {clf.score(X_val, y_val)}')
+
+clf.save_model('catboost-model')
