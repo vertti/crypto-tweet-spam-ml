@@ -44,8 +44,8 @@ This will create training and evaluation sets and SpaCy model in `twitter-spam-m
 
 Install dependencies with `pipenv`.
 
-Run `main.py` to train CatBoost with training set from Prodigy:
+Run `catboost_train.py` to train CatBoost with training set from Prodigy:
 
 ```
-pipenv run python main.py
+pipenv run python catboost_train.py
 ```
