@@ -1,3 +1,5 @@
+cdk.out/
+
 catboost_info/
 
 .vscode/
