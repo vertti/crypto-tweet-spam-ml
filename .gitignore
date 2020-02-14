@@ -4,8 +4,7 @@ catboost_info/
 
 .vscode/
 
-*tweets.jsonl
-
+*tweets.json*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
