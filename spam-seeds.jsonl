@@ -3,3 +3,6 @@
 {"label": "SPAM", "pattern": [{"lower": "free"}]}
 {"label": "SPAM", "pattern": [{"lower": "code"}]}
 {"label": "SPAM", "pattern": [{"lower": "earn"}]}
+{"label": "SPAM", "pattern": [{"lower": "bot"}]}
+{"label": "SPAM", "pattern": [{"lower": "invite"}]}
+{"label": "SPAM", "pattern": [{"lower": "retweet"}]}
