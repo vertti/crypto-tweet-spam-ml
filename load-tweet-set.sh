@@ -1,7 +1,7 @@
 token=$1
 
 parse () {
-   jq -c '.statuses[] | { text: .full_text, meta: { retweets: .retweet_count, favorites: .favorite_count, user_id: .user.id_str, followers: .user.followers_count }}'
+   jq -c '.statuses[] | { text: .full_text, meta: { retweets: .retweet_count, favorites: .favorite_count, user_id: .user.id_str, followers: .user.followers_count, friends: .user.friends_count, symbols: .entities.symbols | length }}'
 }
 
 fetch () {
