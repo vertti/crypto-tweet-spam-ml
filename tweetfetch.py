@@ -14,3 +14,4 @@ for tweet in tweepy.Cursor(api.search, q="tweepy", tweet_mode="extended").items(
     print(tweet.retweet_count)
     print(tweet.favorite_count)
     print(tweet.user.followers_count)
+    print(tweet.user.friends_count)
