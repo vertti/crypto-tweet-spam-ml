@@ -1,9 +1,7 @@
 {
+  "exclusive_classes":false,
   "labels":[
     "SPAM"
   ],
-  "pretrained_vectors":null,
-  "deprecation_fixes":{
-    "vectors_name":null
-  }
+  "pretrained_vectors":null
 }
