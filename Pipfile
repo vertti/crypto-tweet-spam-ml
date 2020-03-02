@@ -12,7 +12,7 @@ black = "*"
 [packages]
 pandas = "*"
 catboost = "*"
-spacy = "~=2.0.12"
+spacy = "*"
 scikit-learn = "*"
 python-dotenv = "*"
 tweepy = "*"
