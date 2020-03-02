@@ -5,6 +5,8 @@ from pandas import json_normalize
 
 def load_set(name):
     non_needed_lines = [
+        "_session_id",
+        "_view_id",
         "_input_hash",
         "_task_hash",
         "label",
@@ -13,6 +15,8 @@ def load_set(name):
         "meta.score",
         "spans",
         "priority",
+        "meta.pattern",
+        "cats.SPAM",
     ]
     df = json_normalize(
         pd.Series(open(f"twitter-spam-model/{name}.jsonl").readlines()).apply(

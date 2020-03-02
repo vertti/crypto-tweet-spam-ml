@@ -2,6 +2,7 @@ from catboost import CatBoostClassifier
 from loader import load_set
 
 training_df = load_set("training").drop(columns=["text"])
+print(training_df.head())
 evaluation_df = load_set("evaluation").drop(columns=["text"])
 
 X_train = training_df.drop(columns=["answer"])
