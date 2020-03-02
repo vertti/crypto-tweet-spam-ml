@@ -1,3 +1,5 @@
+import pandas as pd
+from datetime import datetime
 import tweepy
 import os
 from dotenv import load_dotenv
@@ -6,14 +8,8 @@ load_dotenv()
 
 
 def parse_tweet(tweet):
-    print(tweet.created_at)
-    print(tweet.full_text)
-    print(tweet.retweet_count)  # meta.retweets
-    print(tweet.favorite_count)  # meta.favorites
-    print(tweet.user.followers_count)  # meta.followers
-    print(tweet.user.friends_count)  # meta.friends
-    print(len(tweet.entities.get("symbols", {})))  # meta.symbols
-    return [
+    parsed = [
+        int(datetime.timestamp(tweet.created_at)),
         tweet.full_text,
         tweet.retweet_count,
         tweet.favorite_count,
@@ -21,6 +17,7 @@ def parse_tweet(tweet):
         tweet.user.friends_count,
         len(tweet.entities.get("symbols", {})),
     ]
+    return parsed
 
 
 auth = tweepy.AppAuthHandler(
@@ -28,7 +25,27 @@ auth = tweepy.AppAuthHandler(
 )
 
 api = tweepy.API(auth)
-for tweet in tweepy.Cursor(api.search, q="$btc", tweet_mode="extended").items(10):
-    parse_tweet(tweet)
-    if hasattr(tweet, "retweeted_status"):
-        print("is retweet")
+
+def fetch_tweet_df(search_term: str, limit: int) -> pd.DataFrame:
+    data = [
+        parse_tweet(tweet)
+        for tweet in tweepy.Cursor(api.search, q=search_term, tweet_mode="extended").items(limit)
+        if not hasattr(tweet, "retweeted_status")
+    ]
+
+    tweet_df = pd.DataFrame(
+        data,
+        columns=[
+            "timestamp",
+            "full_text",
+            "meta.retweets",
+            "meta.favorites",
+            "meta.followers",
+            "meta.friends",
+            "meta.symbols",
+        ],
+    )
+    print(tweet_df)
+    return tweet_df
+
+fetch_tweet_df("$btc", 30)
