@@ -16,6 +16,7 @@ spacy = "*"
 scikit-learn = "*"
 python-dotenv = "*"
 tweepy = "*"
+redis = "*"
 
 [requires]
 python_version = "3.6"
