@@ -1,3 +1,4 @@
+import pickle
 import spacy
 from catboost import CatBoostClassifier
 from loader import load_set
@@ -47,3 +48,6 @@ evaluations = pd.DataFrame({"prodigy": prodigy_evaluates, "catboost": cat_evalua
 logreg = LogisticRegression()
 
 print(logreg.fit(predictions, y_train).score(evaluations, y_val))
+
+filename = "logreg_model.sav"
+pickle.dump(logreg, open(filename, "wb"))
