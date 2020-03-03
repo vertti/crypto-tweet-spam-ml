@@ -4,5 +4,5 @@ RUN pip install pipenv
 ADD Pipfile .
 ADD Pipfile.lock .
 RUN pipenv install
-ADD tweetfetch.py .
-CMD pipenv run python tweetfetch.py
+ADD . .
+CMD pipenv run python writer.py
