@@ -4,5 +4,6 @@ RUN pip install pipenv
 ADD Pipfile .
 ADD Pipfile.lock .
 RUN pipenv install
-ADD . .
-CMD pipenv run python writer.py
+ADD models models/
+ADD writer writer/
+CMD pipenv run python writer/writer.py
