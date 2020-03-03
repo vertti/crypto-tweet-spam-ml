@@ -1,10 +1,15 @@
+from os import path
 import pandas as pd
 import pickle
 import spacy
 from catboost import CatBoostClassifier
 from tweetfetch import fetch_tweet_df
 
-prodigy_model = spacy.load("twitter-spam-model")
+def get_model_path(modelname: str):
+    return path.join("..", "models", modelname)
+
+
+prodigy_model = spacy.load(get_model_path("twitter-spam-model"))
 
 
 def get_proba(tuplelist):
@@ -17,9 +22,9 @@ def prodigy_predict(value):
 
 
 catboost_model = CatBoostClassifier()
-catboost_model.load_model("catboost-model")
+catboost_model.load_model(get_model_path("catboost-model"))
 
-logreg_model = pickle.load(open("logreg_model.sav", "rb"))
+logreg_model = pickle.load(open(get_model_path("logreg_model.sav"), "rb"))
 
 
 def get_latest_tweets(search_term: str, limit: int) -> pd.DataFrame:
