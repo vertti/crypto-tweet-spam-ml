@@ -10,6 +10,8 @@ load_dotenv()
 def parse_tweet(tweet):
     parsed = [
         int(datetime.timestamp(tweet.created_at)),
+        tweet.id,
+        tweet.user.screen_name,
         tweet.full_text,
         tweet.retweet_count,
         tweet.favorite_count,
@@ -29,7 +31,7 @@ api = tweepy.API(auth)
 def fetch_tweet_df(search_term: str, limit: int) -> pd.DataFrame:
     data = [
         parse_tweet(tweet)
-        for tweet in tweepy.Cursor(api.search, q=search_term, tweet_mode="extended").items(limit)
+        for tweet in tweepy.Cursor(api.search, q=search_term, result_type="recent", tweet_mode="extended", include_entities=True).items(limit)
         if not hasattr(tweet, "retweeted_status")
     ]
 
@@ -37,6 +39,8 @@ def fetch_tweet_df(search_term: str, limit: int) -> pd.DataFrame:
         data,
         columns=[
             "timestamp",
+            "id",
+            "screen_name",
             "full_text",
             "meta.retweets",
             "meta.favorites",
@@ -47,5 +51,3 @@ def fetch_tweet_df(search_term: str, limit: int) -> pd.DataFrame:
     )
     print(tweet_df)
     return tweet_df
-
-fetch_tweet_df("$btc", 30)
