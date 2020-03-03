@@ -19,15 +19,17 @@ catboost_model.load_model("catboost-model")
 training_df = load_set("training")
 evaluation_df = load_set("evaluation")
 
+print(training_df.head())
+
 X_train_cat = training_df.drop(columns=["text", "answer"])
 y_train = training_df.answer
 X_val_cat = evaluation_df.drop(columns=["text", "answer"])
 
 cat_predicts = X_train_cat.apply(
-    lambda x: catboost_model.predict_proba([x])[0][1], axis=1
+    lambda x: catboost_model.predict_proba([x])[0][0], axis=1
 )
 cat_evaluates = X_val_cat.apply(
-    lambda x: catboost_model.predict_proba([x])[0][1], axis=1
+    lambda x: catboost_model.predict_proba([x])[0][0], axis=1
 )
 
 print(cat_predicts)
