@@ -17,6 +17,7 @@ scikit-learn = "*"
 python-dotenv = "*"
 tweepy = "*"
 redis = "*"
+flask = "*"
 
 [requires]
 python_version = "3.6"
