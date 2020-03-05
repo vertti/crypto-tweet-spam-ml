@@ -1,10 +1,25 @@
-redis:
-  image: redis
-  expose:
-    - 6379
+version: '2'
 
-writer:
-  build: ./
-  env_file: .env
-  links: 
-    - redis
+services:
+  redis:
+    image: redis
+    expose:
+      - 6379
+
+  writer:
+    build:
+      context: ./
+      dockerfile: Dockerfile-writer
+    env_file: .env
+    links: 
+      - redis
+
+  reader:
+    build:
+      context: ./
+      dockerfile: Dockerfile-reader
+    env_file: .env
+    links: 
+      - redis
+    ports: 
+      - "5000:5000"
