@@ -1,9 +1,9 @@
 import pandas as pd
 import json
 from pandas import json_normalize
+from os import path
 
-
-def load_set(name):
+def load_set():
     non_needed_lines = [
         "_session_id",
         "_view_id",
@@ -16,10 +16,9 @@ def load_set(name):
         "spans",
         "priority",
         "meta.pattern",
-        "cats.SPAM",
     ]
     df = json_normalize(
-        pd.Series(open(f"twitter-spam-model/{name}.jsonl").readlines()).apply(
+        pd.Series(open(path.join("..", "models", "twitter-spam-model", "twitter_spam.jsonl")).readlines()).apply(
             json.loads
         )
     )

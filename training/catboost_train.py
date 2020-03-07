@@ -1,15 +1,13 @@
 from catboost import CatBoostClassifier
 from loader import load_set
+from sklearn.model_selection import train_test_split
 
-training_df = load_set("training").drop(columns=["text"])
-print(training_df.head())
-evaluation_df = load_set("evaluation").drop(columns=["text"])
+train = load_set().drop(columns=["text"])
 
-X_train = training_df.drop(columns=["answer"])
-y_train = training_df.answer
+X = train.drop(columns=["answer"])
+y = train.answer
 
-X_val = evaluation_df.drop(columns=["answer"])
-y_val = evaluation_df.answer
+X_train, X_val, y_train, y_val = train_test_split(X, y)
 
 clf = CatBoostClassifier()
 clf.fit(X_train, y_train)
