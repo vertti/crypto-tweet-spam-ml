@@ -6,8 +6,8 @@ verify_ssl = true
 [dev-packages]
 pylint = "*"
 rope = "*"
-aws-cdk-core = "*"
 black = "*"
+pytest = "*"
 
 [packages]
 pandas = "*"
@@ -18,6 +18,7 @@ python-dotenv = "*"
 tweepy = "*"
 redis = "*"
 flask = "*"
+requests = "*"
 
 [requires]
 python_version = "3.6"
