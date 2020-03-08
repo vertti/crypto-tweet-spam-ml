@@ -32,7 +32,13 @@ api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
 def fetch_tweet_df(search_term: str, limit: int) -> pd.DataFrame:
     data = [
         parse_tweet(tweet)
-        for tweet in tweepy.Cursor(api.search, q=search_term, result_type="recent", tweet_mode="extended", include_entities=True).items(limit)
+        for tweet in api.search(
+            q=search_term,
+            result_type="recent",
+            tweet_mode="extended",
+            include_entities=True,
+            count=limit,
+        )
         if not hasattr(tweet, "retweeted_status")
     ]
 
