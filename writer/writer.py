@@ -1,6 +1,6 @@
 import redis
 from json import dumps
-from tweet_filter import get_latest_tweets
+from pandas import DataFrame
 
 def construct_json(row):
     return {
@@ -12,13 +12,12 @@ def construct_json(row):
 
 r = redis.Redis(host="redis", port=6379, db=0)
 
-tweets = get_latest_tweets("$btc", 100)
+def store_tweets(coin: str, tweets: DataFrame):
+    for row in tweets.itertuples():
+      tweet_json = dumps(construct_json(row))
+      mapping = { tweet_json: row.timestamp }
+      print(mapping)
+      r.zadd('btc', mapping)
 
-for row in tweets.itertuples():
-  tweet_json = dumps(construct_json(row))
-  mapping = { tweet_json: row.timestamp }
-  print(mapping)
-  r.zadd('btc', mapping)
-
-print(r.zcard("btc"))
+    print(r.zcard("btc"))
 
