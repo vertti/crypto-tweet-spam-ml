@@ -13,8 +13,12 @@ while True:
     for coin in top_coins:
         print(f"Fetching tweets for ${coin}")
         tweets = get_latest_tweets(f"${coin}", 100)
-        print(f"Storing tweets for ${coin}")
-        store_tweets(coin, tweets)
+        if len(tweets.index) > 0:
+            print(f"Storing tweets for ${coin}")
+            store_tweets(coin, tweets)
+        else:
+            print("No tweets found")
+        sleep(10)
 
     print("Finished writing 100 most recent tweets for each 50 top coins")
     print("Sleeping 2 minutes")

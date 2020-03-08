@@ -30,6 +30,9 @@ logreg_model = pickle.load(open(get_model_path("logreg_model.sav"), "rb"))
 def get_latest_tweets(search_term: str, limit: int) -> pd.DataFrame:
     tweets = fetch_tweet_df(search_term, limit)
 
+    if len(tweets.index) == 0:
+        return tweets
+
     cat_predictions = get_proba(
         catboost_model.predict_proba(
             tweets.drop(columns=["full_text", "id", "screen_name"])
