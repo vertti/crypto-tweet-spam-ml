@@ -11,7 +11,7 @@ def home():
 
 @app.route("/coin/<coin>")
 def get_coin_tweets(coin):
-    print(f"Getting coin tweets for {coin}", flush=True)
+    print(f"Getting coin tweets for {coin}")
     return flask.jsonify(get_tweets(flask.escape(coin)))
 
 

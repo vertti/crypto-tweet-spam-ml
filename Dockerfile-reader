@@ -5,4 +5,4 @@ ADD Pipfile .
 ADD Pipfile.lock .
 RUN pipenv install
 ADD reader reader/
-CMD pipenv run python reader/app.py
+CMD pipenv run python -u reader/app.py

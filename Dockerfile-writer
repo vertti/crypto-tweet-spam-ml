@@ -6,4 +6,4 @@ ADD Pipfile.lock .
 RUN pipenv install
 ADD models models/
 ADD writer writer/
-CMD pipenv run python writer/app.py
+CMD pipenv run python -u writer/app.py
