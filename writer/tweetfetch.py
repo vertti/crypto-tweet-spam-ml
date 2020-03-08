@@ -26,7 +26,8 @@ auth = tweepy.AppAuthHandler(
     os.getenv("TWITTER_CONSUMER_KEY"), os.getenv("TWITTER_CONSUMER_SECRET")
 )
 
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
+
 
 def fetch_tweet_df(search_term: str, limit: int) -> pd.DataFrame:
     data = [
