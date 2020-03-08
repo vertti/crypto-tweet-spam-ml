@@ -3,9 +3,11 @@ import spacy
 from catboost import CatBoostClassifier
 from loader import load_set
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
 import pandas as pd
+from os import path
 
-prodigy_model = spacy.load("twitter-spam-model")
+prodigy_model = spacy.load(path.join("..", "models", "twitter-spam-model"))
 
 
 def prodigy_predict(value):
@@ -14,16 +16,21 @@ def prodigy_predict(value):
 
 
 catboost_model = CatBoostClassifier()
-catboost_model.load_model("catboost-model")
+catboost_model.load_model(path.join("..", "models", "catboost-model"))
 
-training_df = load_set("training")
-evaluation_df = load_set("evaluation")
+train = load_set()
 
-print(training_df.head())
+print(train.head())
 
-X_train_cat = training_df.drop(columns=["text", "answer"])
-y_train = training_df.answer
-X_val_cat = evaluation_df.drop(columns=["text", "answer"])
+X = train.drop(columns=["answer"])
+y = train.answer
+
+X_train, X_val, y_train, y_val = train_test_split(X, y)
+
+X_train_cat = X_train.drop(columns=["text"])
+X_val_cat = X_val.drop(columns=["text"])
+X_train_pro = X_train.text
+X_val_pro = X_val.text
 
 cat_predicts = X_train_cat.apply(
     lambda x: catboost_model.predict_proba([x])[0][0], axis=1
@@ -34,18 +41,15 @@ cat_evaluates = X_val_cat.apply(
 
 print(cat_predicts)
 
-X_train_pro = training_df.text
-X_val_pro = evaluation_df.text
-
 prodigy_predicts = X_train_pro.apply(lambda x: prodigy_predict(x))
 prodigy_evaluates = X_val_pro.apply(lambda x: prodigy_predict(x))
-
-y_val = evaluation_df.answer
 
 print(prodigy_predicts)
 
 predictions = pd.DataFrame({"prodigy": prodigy_predicts, "catboost": cat_predicts})
 evaluations = pd.DataFrame({"prodigy": prodigy_evaluates, "catboost": cat_evaluates})
+
+print(predictions)
 
 logreg = LogisticRegression()
 
