@@ -56,5 +56,4 @@ def fetch_tweet_df(search_term: str, limit: int) -> pd.DataFrame:
             "meta.symbols",
         ],
     )
-    print(tweet_df)
     return tweet_df

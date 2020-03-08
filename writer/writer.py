@@ -16,8 +16,7 @@ def store_tweets(coin: str, tweets: DataFrame):
     for row in tweets.itertuples():
       tweet_json = dumps(construct_json(row))
       mapping = { tweet_json: row.timestamp }
-      print(mapping)
-      r.zadd('btc', mapping)
+      r.zadd(coin, mapping)
 
-    print(r.zcard("btc"))
+    print(f"Items for {coin}: {r.zcard(coin)}")
 

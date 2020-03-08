@@ -3,6 +3,8 @@ from coinmarket import get_top_coins
 from writer import store_tweets
 from time import sleep
 
+print("Fetching top coins")
+
 top_coins = get_top_coins(50)
 
 print("Current top coins", top_coins)
