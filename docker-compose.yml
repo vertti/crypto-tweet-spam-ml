@@ -23,3 +23,9 @@ services:
       - redis
     ports: 
       - "5000:5000"
+
+  website:
+    build:
+      context: website
+    ports: 
+      - "8080:80"
