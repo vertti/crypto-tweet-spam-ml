@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.21.0 (992df58d8)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: reader
+  name: reader
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: reader
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.21.0 (992df58d8)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: reader
+    spec:
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/twitter-spam-dev/reader
+          envFrom:
+            - configMapRef:
+                name: shared-env
+          imagePullPolicy: ''
+          name: reader
+          ports:
+            - containerPort: 5000
+          resources: {}
+      restartPolicy: Always
+      serviceAccountName: ''
+      volumes: null
+status: {}
