@@ -49,3 +49,18 @@ Run `catboost_train.py` to train CatBoost with training set from Prodigy:
 ```
 pipenv run python catboost_train.py
 ```
+
+
+## Deploying to Kubernetes
+
+# Create configmap
+
+`.env` file needs to contain following values:
+
+
+
+Those can then be deployed to Kubernetes with:
+
+```
+kubectl create configmap shared-env --from-env-file=.env
+```
